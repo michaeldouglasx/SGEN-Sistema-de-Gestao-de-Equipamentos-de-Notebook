@@ -1,5 +1,7 @@
+from django.forms import ModelForm
 from django import forms
 from accounts.models import User
+
 
 class CadastroForm(forms.Form):
     first_name = forms.CharField(max_length=150)
@@ -50,5 +52,17 @@ class CadastroForm(forms.Form):
         else:
             return self.cleaned_data
 
-class RecuperarSenha(forms.Form):
-    email = forms.CharField(max_length = 100)
+class RecuperarSenhaForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['email_academico']
+
+    def clean_email_academico(self):
+        email = self.cleaned_data.get('email_academico')
+        if not User.objects.filter(email_academico=email).exists():
+            raise forms.ValidationError("email não cadastrado")
+        return email
+
+        
+
+        

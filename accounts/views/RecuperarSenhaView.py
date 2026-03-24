@@ -1,11 +1,16 @@
 from django.shortcuts import render
-from django.views.generic import View
+from django.urls import reverse_lazy
+from django.views.generic import FormView
+from accounts.forms import RecuperarSenhaForm
 
 
-class RecuperarSenhaView(View):
-    def get(self, request):
-        return render(request, 'recuperar_senha.html')
-        
-    def post(self, request, *args, **kwargs):
-        return self.get(request, *args, **kwargs)
+class RecuperarSenhaView(FormView):
+    template_name = "recuperar_senha.html"
+    form_class = RecuperarSenhaForm
+    success_url = reverse_lazy('login')
 
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+    
+  

@@ -9,8 +9,9 @@
         {% csrf_token %}
 
         <div class="campo">
-            <label for="id_login">Email</label>
-            <input id="id_login" type="text" name="login" placeholder="Digite o seu e-mail cadastrado" required>
+            {{ form.email_academico.errors }}
+            <label for="id_login">E-mail</label>
+            {{ form.email_academico }}
         </div>
 
         <button type="submit" class="btn-principal">Enviar</button>
