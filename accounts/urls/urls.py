@@ -3,6 +3,7 @@ from ..views.LoginView import Login_View
 from ..views.CadastroView import Cadastro_View
 from ..views.ReservaView import Reserva_View
 from ..views.LogoutView import Logout_View
+from ..views.RecuperarSenhaView import RecuperarSenhaView
 
 
 urlpatterns = [
@@ -10,6 +11,6 @@ urlpatterns = [
     path('cadastro/', Cadastro_View, name='cadastro'),
     path('reserva/', Reserva_View, name='reserva'),
     path('logout/', Logout_View, name='logout'),
-    path('recuperar_senha/', Logout_View, name='recuperar_senha')
+    path('forgot-password', RecuperarSenhaView.as_view(), name='recuperar_senha')
 
 ]

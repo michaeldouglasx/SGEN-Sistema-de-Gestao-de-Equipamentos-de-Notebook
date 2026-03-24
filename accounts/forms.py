@@ -49,4 +49,6 @@ class CadastroForm(forms.Form):
             raise forms.ValidationError("Senhas não são idênticas")
         else:
             return self.cleaned_data
-        
+
+class RecuperarSenha(forms.Form):
+    email = forms.CharField(max_length = 100)

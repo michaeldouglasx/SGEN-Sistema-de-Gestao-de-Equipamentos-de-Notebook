@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
-{%content block%}
-
-
+{%  block content %}
 <section class="card card-login">
     <h2>Recuperar Senha</h2>
     <p class="descricao"></p>
@@ -12,13 +10,15 @@
 
         <div class="campo">
             <label for="id_login">Email</label>
-            <input id="id_login" type="text" name="login" placeholder="Digite seu usuário" required>
+            <input id="id_login" type="text" name="login" placeholder="Digite o seu e-mail cadastrado" required>
         </div>
 
         <button type="submit" class="btn-principal">Enviar</button>
+
+        <div class="opcao">
+            <p class="opcao"><a href="{% url 'cadastro' %}"> Cadastre-se </a></p>
+        </div>
     </form>
+    <p class="opcao"><a href="{% url 'login' %}"> Voltar </a></p>
 </section>
-
-
-
-{%endblock%}
+{% endblock %}

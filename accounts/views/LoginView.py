@@ -14,7 +14,7 @@ def Login_View(request):
 
             url_destino = 'admin:index' if user.is_superuser else 'reserva'
             return redirect(url_destino)
-        print(login_form.errors)
+        
         login_form.errors.clear()
         login_form.add_error(None, 'Usuário ou senha inválidos!')
     else:
