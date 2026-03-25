@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django import forms
-from accounts.models import User
+from accounts.models import User, TokenRecuperacao
 
 
 class CadastroForm(forms.Form):
@@ -51,6 +51,11 @@ class CadastroForm(forms.Form):
             raise forms.ValidationError("Senhas não são idênticas")
         else:
             return self.cleaned_data
+        
+
+
+
+
 
 class RecuperarSenhaForm(ModelForm):
     class Meta:
@@ -60,9 +65,23 @@ class RecuperarSenhaForm(ModelForm):
     def clean_email_academico(self):
         email = self.cleaned_data.get('email_academico')
         if not User.objects.filter(email_academico=email).exists():
-            raise forms.ValidationError("email não cadastrado")
+            raise forms.ValidationError("E-mail não cadastrado!")
         return email
+    
+    def save(self):
+        email = self.cleaned_data.get('email_academico')
+        usuario = User.objects.get(email_academico=email)
+        token = TokenRecuperacao.objects.create(usuario=usuario)
+        return token
+    
 
-        
+class RedefinirSenhaForm(forms.Form):
+    nova_senha = forms.CharField(widget=forms.PasswordInput, label= 'Nova Senha')
+    confirmacao_senha = forms.CharField(widget=forms.PasswordInput, label= 'Digite a senha novamente')
 
-        
+    def clean(self):
+        senha = self.cleaned_data.get('nova_senha')
+        confirmar = self.cleaned_data.get('confirmacao_senha')
+        if senha != confirmar:
+            raise forms.ValidationError("Senhas não são identicas")
+        return self.cleaned_data

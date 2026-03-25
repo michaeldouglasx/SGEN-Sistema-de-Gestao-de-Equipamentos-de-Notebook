@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{%  block content %}
+<section class="card card-login">
+    <h2>Redefinir Senha</h2>
+    <p class="descricao"></p>
+
+    <form method="post" class="formulario-padrao" action="#">
+        {% csrf_token %}
+
+        <div class="campo">
+            
+            <label for="id_login">Nova Senha</label>
+            
+            {{form.nova_senha}}
+            
+        </div>
+        <div class="campo">
+            
+            <label for="id_login">Confirmação de Senha</label>
+            
+            {{form.confirmacao_senha}}
+            
+        </div>
+
+        <button type="submit" class="btn-principal">Enviar</button>
+    </form>
+</section>
+{% endblock %}
