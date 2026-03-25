@@ -7,7 +7,10 @@ class Loans(models.Model):
     notebook = models.ForeignKey("inventory.Notebook", on_delete=models.PROTECT, verbose_name="Notebook")
     carregador = models.BooleanField(default=False)
     data_retirada = models.DateTimeField(auto_now_add=True, verbose_name="Data de Retirada")
-    data_devolucao= models.DateTimeField(null=True,blank=True, verbose_name="Data de Devolução")
+    data_devolucao = models.DateTimeField(null=True,blank=True, verbose_name="Data de Devolução")
+    horario = models.TimeField(auto_now_add=True, verbose_name='Hora do pedido')
+    emprestado = models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"{self.aluno}-{self.notebook}"
@@ -31,6 +34,8 @@ class Loans(models.Model):
             ja_possui_emprestimo = Loans.objects.filter(aluno=self.aluno, data_devolucao__isnull=True).exists()
             if ja_possui_emprestimo:
                 raise ValidationError("ALUNO: Aluno possui empréstimo ativo")
+        
+        
             
         
 

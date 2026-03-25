@@ -126,6 +126,15 @@ body {
     background: #fbfdff;
 }
 
+.campo input[type="checkbox"],
+.campo input[type="radio"] {
+    width: auto;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
 .campo input:focus,
 .campo select:focus,
 .campo textarea:focus {
@@ -227,4 +236,39 @@ body {
     color: #a31621;
     font-size: 20px;
     
+}
+
+.carregador-opcao {
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+    width: fit-content;
+    margin-top: 2px;
+    cursor: pointer;
+    line-height: 1.2;
+    color: var(--cor-texto);
+    font-size: 0.98rem;
+    font-weight: 600;
+}
+
+.carregador-opcao input[type="checkbox"] {
+    appearance: auto;
+    display: inline-block;
+    width: 18px !important;
+    height: 18px !important;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    flex: 0 0 auto;
+    vertical-align: middle;
+    accent-color: var(--cor-primaria);
+}
+
+.carregador-opcao span {
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: 400;
 }
