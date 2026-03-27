@@ -12,7 +12,8 @@ class ReservaView(LoginRequiredMixin, CreateView):
     model = Loans
     template_name = 'index.html'
     form_class = EmprestimoForm
-    success_url = reverse_lazy('reserva')
+    success_url = reverse_lazy('minhas_reservas')
+    context_object_name = 'loans'
 
     def form_valid(self, form):
         form.instance.aluno = self.request.user

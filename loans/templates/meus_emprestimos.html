@@ -4,8 +4,40 @@
 
 {% block content %}
 <section class="card card-reserva">
-	<h2>Reserva de Equipamento</h2>
-	<p class="descricao">Solicite um notebook informando os dados da reserva.</p>	
-	
+	<h2>Meus Empréstimos</h2>
+	<p class="descricao">Confira seu histórico de Reservas</p>
+
+<div class="container-reservas">
+    <table>
+        <thead>
+            <tr>
+                <th>Aluno</th>
+                <th>Notebook</th>
+                <th>Retirada</th>
+                <th>Devolução</th>
+                <th>Carregador</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva.aluno.get_full_name|default:reserva.aluno.username }}</td>
+                <td>{{ reserva.notebook|default:"Pendente" }}</td>
+                <td>{{ reserva.data_retirada|date:"d/m/Y H:i" }}</td>
+                <td>{{ reserva.data_devolucao|date:"d/m/Y H:i"|default:"Em aberto" }}</td>
+                <td>{{ reserva.carregador|yesno:"Sim,Não" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Você ainda não possui reservas.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
 </section>
 {% endblock %}
