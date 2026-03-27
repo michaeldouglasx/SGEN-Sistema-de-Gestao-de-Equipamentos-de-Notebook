@@ -12,7 +12,7 @@ class User(AbstractUser):
 
     
     def __str__(self):
-        return f"{self.first_name}"
+        return f"{self.first_name} {self.last_name}"
     
 class TokenRecuperacao(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
