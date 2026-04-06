@@ -11,6 +11,7 @@ class Loans(models.Model):
     data_devolucao = models.DateTimeField(null=True,blank=True, verbose_name="Data de Devolução")
     horario = models.TimeField(auto_now_add=True, verbose_name='Hora do pedido')
     emprestado = models.BooleanField(default=False)
+    comprovante = models.FileField(upload_to="comprovante/", blank=True, null=True)
 
 
     def __str__(self):
@@ -20,7 +21,7 @@ class Loans(models.Model):
         verbose_name = 'Empréstimo'
 
     def esta_na_janela_retirada(self, hora):
-            return time(14, 0) <= hora <= time(15, 20)
+            return time(11, 20) <= hora <= time(19, 20)
 
     def esta_na_janela_devolucao(self, hora):
             return time(21, 40) <= hora <= time(22, 0)
