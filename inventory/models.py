@@ -1,17 +1,24 @@
 from django.db import models
 from loans.models import Loans
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
-COLORS = [
-    ("PRETO", "Preto"), ("CINZA", "Cinza"), 
-    ("BRANCO", "Branco"), ("PRATA", "Prata")
-]
 
 STATUS = [
     ("DISPONIVEL", "Disponível"),
     ("MANUTENCAO", "Manutenção"),
     ("EMPRESTADO", "Emprestado"),
 ]
+
+
+class Color(models.Model):
+    name_color = models.CharField( max_length=40, verbose_name='Nome da cor')
+    def __str__(self):
+        return  self.name_color
+    class Meta:
+        verbose_name = 'Cor'
+        verbose_name_plural= "Cores"
+
 class Brand(models.Model):
     id = models.AutoField(primary_key=True,null=False)
     brand = models.CharField(max_length=50, unique=True)
@@ -24,9 +31,11 @@ class Brand(models.Model):
 
 
 class Notebook(models.Model):
-    numero_patrimonio = models.Field(blank=False, max_length=6, unique=True, verbose_name="Nº Patrimônio")
-    marca= models.ForeignKey(Brand, on_delete=models.PROTECT)
-    cor = models.CharField(max_length=30,  choices=COLORS)
+    numero_patrimonio = models.IntegerField(blank=False, unique=True, verbose_name="Nº Patrimônio", validators=[
+            MinValueValidator(100000),
+            MaxValueValidator(999999) ])
+    marca= models.ForeignKey(Brand, on_delete=models.PROTECT,  )
+    cor = models.ForeignKey(Color, on_delete=models.PROTECT)
     modelo = models.CharField(max_length=50)
     status = models.CharField(max_length=15, choices=STATUS, default="DISPONIVEL")
 
@@ -41,6 +50,7 @@ class Notebook(models.Model):
         return f"{self.numero_patrimonio} - {self.marca}"
     class Meta:
         verbose_name = 'Notebook'
+        
 
 
     

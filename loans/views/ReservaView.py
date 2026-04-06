@@ -17,7 +17,6 @@ class ReservaView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.aluno = self.request.user
-        print(form.instance)
         return super().form_valid(form)
     
 
