@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -135,3 +136,13 @@ EMAIL_HOST_USER = 'michaelfsdouglas@gmail.com'
 EMAIL_HOST_PASSWORD = 'yhvp pphb july cvqy' 
 DEFAULT_FROM_EMAIL = 'SGEN - Gestão de Notebooks <michaelfsdouglas@gmail.com>'
 
+JAZZMIN_SETTINGS = {
+    "site_title": "SGEN Admin",
+    "site_header": "SGEN",
+    "site_brand": "SGEN - Gestão de Empréstimos",
+    "welcome_sign": "Bem-vindo ao Sistema de Gestão de Notebooks",
+    "copyright": "Michael Douglas - ADS 2026",
+    "search_model": ["auth.User", "loans.Loans"],
+    "show_sidebar": True, 
+    "navigation_expanded": True,
+}
