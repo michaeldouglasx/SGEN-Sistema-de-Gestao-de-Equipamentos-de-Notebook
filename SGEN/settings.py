@@ -139,10 +139,13 @@ DEFAULT_FROM_EMAIL = 'SGEN - Gestão de Notebooks <michaelfsdouglas@gmail.com>'
 JAZZMIN_SETTINGS = {
     "site_title": "SGEN Admin",
     "site_header": "SGEN",
-    "site_brand": "SGEN - Gestão de Empréstimos",
+    "site_brand": "SGEN",
     "welcome_sign": "Bem-vindo ao Sistema de Gestão de Notebooks",
     "copyright": "Michael Douglas - ADS 2026",
     "search_model": ["auth.User", "loans.Loans"],
     "show_sidebar": True, 
     "navigation_expanded": True,
+    "show_ui_builder": True,
+    "site_logo": "images/logoPronta.png",
+    
 }
