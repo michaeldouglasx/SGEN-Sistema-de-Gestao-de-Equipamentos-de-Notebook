@@ -7,7 +7,7 @@ class NotebookAdmin(admin.ModelAdmin):
     list_display = ('numero_patrimonio', 'marca',  'modelo', 'cor','status', 'aluno_atual' )
     list_filter = ('status', 'marca')
     search_fields = ('numero_patrimonio',)
-    readonly_fields = ('status',)
+    
     
 
 

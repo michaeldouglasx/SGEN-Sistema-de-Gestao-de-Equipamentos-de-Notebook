@@ -142,10 +142,11 @@ JAZZMIN_SETTINGS = {
     "site_brand": "SGEN",
     "welcome_sign": "Bem-vindo ao Sistema de Gestão de Notebooks",
     "copyright": "Michael Douglas - ADS 2026",
-    "search_model": ["auth.User", "loans.Loans"],
+    "search_model": ["accounts.User", "loans.Loans"],
     "show_sidebar": True, 
     "navigation_expanded": True,
     "show_ui_builder": True,
     "site_logo": "images/logoPronta.png",
+    
     
 }
