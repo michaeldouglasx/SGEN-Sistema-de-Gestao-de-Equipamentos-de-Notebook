@@ -12,7 +12,7 @@ STATUS = [
 
 
 class Color(models.Model):
-    name_color = models.CharField( max_length=40, verbose_name='Nome da cor')
+    name_color = models.CharField( max_length=40, verbose_name='Nome da cor', unique=True)
     def __str__(self):
         return  self.name_color
     class Meta:

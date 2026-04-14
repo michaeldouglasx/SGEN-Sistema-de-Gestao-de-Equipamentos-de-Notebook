@@ -15,9 +15,15 @@ class ReservaView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('minhas_reservas')
     context_object_name = 'loans'
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.instance.aluno = self.request.user 
+        return form
+    
     def form_valid(self, form):
-        form.instance.aluno = self.request.user
         return super().form_valid(form)
+    
+    
     
 
 

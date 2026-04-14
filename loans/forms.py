@@ -7,5 +7,7 @@ class EmprestimoForm(ModelForm):
     class Meta:
         model = Loans
         fields = ['carregador']
+        
+        
 
 
