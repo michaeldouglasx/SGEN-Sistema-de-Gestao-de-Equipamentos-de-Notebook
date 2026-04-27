@@ -7,49 +7,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}SGEN{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}?v=20260325-1">
+    <link rel="shortcut icon" href="{% static 'images/logoPronta.png' %}" type="image/x-icon">
 </head>
 
 <body>
 
     <header class="topo">
-        <div class="container-nav">
-
-            <div class="nav-esquerda">
-                {% if user.is_authenticated %}
-                {%if user.first_name%}
-                <span>Olá, {{ user.first_name }}</span>
-                {% endif %}
-                {% endif %}
-            </div>
-
-
-
-            <div class="logo-area">
-                <a href="{% url 'reserva' %}">
-                    <img src="{% static 'images/logoPronta.png' %}" alt="Logo SGEN">
-                </a>
-            </div>
-            <div>
-                {% if user.is_authenticated %}
-                <a href="{%url 'minhas_reservas'%}">
-                    IR PARA MEUS EMPRESTIMOS</a>
+        <div >
+            {% if user.is_authenticated %}
+            <ul class="menu">
+                <li><a href="{%url 'reserva'%}">Home</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="{%url 'minhas_reservas'%}">Meus Empréstimos</a></li>
                 {% endif %}
             </div>
+        
 
-            <div>
-                {% if user.is_authenticated %}
-                <a class="sair" href="{% url 'logout' %}"> Sair </a>
-                {% endif %}
-            </div>
+        <div class="logo-area">
+            <a href="{% url 'reserva' %}">
+                <img src="{% static 'images/logoPronta.png' %}" alt="Logo SGEN">
+            </a>
+        </div>
+
+        <div class="logo-sair">
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">
+                <img src="{% static 'images\59319.png' %}">
+            </a>
+            {% endif %}
+        </div>
+
+
 
         </div>
     </header>
 
     <main class="area-principal">
+
         <div class="container-conteudo">
             {% block content %}{% endblock %}
         </div>
     </main>
+
+    <footer>
+
+    </footer>
 
 </body>
 

@@ -21,12 +21,20 @@ body {
     flex-direction: column;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: var(--cor-texto);
-    background: linear-gradient(160deg, #eef2f8 0%, #dfe8f5 100%);
+    background: linear-gradient(300deg, #f2f2f7 0%, #2b66b9 100%);
 }
 
 .topo {
     background: #0f2f4c;
-    border-bottom: 3px solid #0f4c81;
+    border-bottom: 5px solid #073b75;
+    align-items: center;
+    display:flex;
+    justify-content: space-between;
+    height: 80px;
+    padding: 0 20px;
+    
+    
+    
 }
 
 .container-nav {
@@ -34,9 +42,10 @@ body {
     margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    align-content: center;
     min-height: 68px;
     gap: 24px;
+    
 }
 
 .logo {
@@ -45,6 +54,8 @@ body {
     font-size: 1.45rem;
     font-weight: 700;
     letter-spacing: 0.08em;
+    border-radius: 15px;
+    
 }
 
 .menu {
@@ -85,6 +96,10 @@ body {
     border-radius: 14px;
     box-shadow: 0 18px 40px rgba(15, 47, 76, 0.12);
     padding: 28px 24px;
+    
+    
+
+    
 }
 
 .card h2 {
@@ -183,6 +198,7 @@ body {
         gap: 14px;
     }
 
+
     .area-principal {
         padding: 20px 12px;
         align-items: flex-start;
@@ -198,40 +214,39 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    justify-content: space-between
+    justify-content: center;
+    
+    
+    
 }
 
 /* IMAGEM DA LOGO */
 .logo-area img{
-    height: 40px;
+    height: 50px;
     width: auto;
     display: block;
-    justify-content: space-between
+    border-radius: 15px;
+    
+    
+
     
 }
 
-/* TEXTO SGEN AO LADO DA LOGO */
-.logo-area .logo{
-    display: flex;
-    align-items: center;
-    
-}
+
 
 .opcao {
     color: #530342;
     display: flex;
     gap: 300px
 }
-
+w
 .opcao:active{
     font-size: 15px;
 }
 
-.sair{
-    color: #eef2f8;
-    font-style: italic;
+
     
-}
+
 .alerta-erro {
     color: #a31621;
     font-size: 20px;
@@ -277,4 +292,12 @@ body {
 display: flex;
 grid-gap: 100px
 
+}
+
+.logo-sair a img{
+    height: 25px;
+    align-items: center;
+    
+
+    
 }
