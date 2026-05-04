@@ -1,14 +1,12 @@
-
-
 {% extends 'base.html' %}
 
 
-{% block title %} Meus Empréstimos | SGEN{% endblock %}
+{% block title %} Deletar | SGEN{% endblock %}
 
 {% block content %}
 <section class="card card-reserva">
-	<h2>Meus Empréstimos</h2>
-	<p class="descricao">Confira seu histórico de Reservas</p>
+	<h2>Deletar Empréstimo?</h2>
+	
 
     <table class="table" >
         <thead>
@@ -19,7 +17,6 @@
                 <th scope="col">Retirada</th>
                 <th scope="col">Devolução</th>
                 <th scope="col"> Carregador</th>
-                <th scope="col">Opção</th>
             </tr>
         </thead>
         <tbody>
@@ -31,11 +28,13 @@
                 <td>{{ reserva.data_retirada|date:"d/m/Y H:i" }}</td>
                 <td>{{ reserva.data_devolucao|date:"d/m/Y H:i"|default:"Em aberto" }}</td>
                 <td>{{ reserva.carregador|yesno:"Sim,Não" }}</td>
-                <td><a href="{% url 'cancelar_reserva' reserva.pk %}"><button type="button" class="btn btn-danger">Cancelar</button></a></td>
             </tr>
+            <form method="post" class="formulario-padrao" action="#">
+                <button type="submit" class="btn-principal">Cancelar Reserva</button>
+            </form>
             {% empty %}
             <tr>
-                <td colspan="5">Você ainda não possui reservas.</td>
+                <td colspan="5">Você ainda não possui reservas para serem excluídas.</td>
             </tr>
             {% endfor %}
         </tbody>

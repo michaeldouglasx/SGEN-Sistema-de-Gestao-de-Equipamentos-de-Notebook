@@ -6,7 +6,8 @@ from django.contrib import messages
 
 class CancelarReservaView(LoginRequiredMixin, DeleteView):
     model = Loans
-    success_url = reverse_lazy('minhas_reservas')
+    success_url = reverse_lazy("minhas_reservas")
+    template_name = "delete.html"
     
 
     def delete(self, request, *args, kwargs):
