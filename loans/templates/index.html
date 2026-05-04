@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block title %}Reserva | SGEN{% endblock %}
@@ -23,10 +24,6 @@
 	</div>
 	<form method="post" class="formulario-padrao" action="#">
 		{% csrf_token %}
-		
-		<div class="alert alert-danger">
-		</div>
-
 		<div class="campo">
 			<label for="{{ form.carregador.id_for_label }}">Carregador?</label>
 			<label class="carregador-opcao" for="{{ form.carregador.id_for_label }}">

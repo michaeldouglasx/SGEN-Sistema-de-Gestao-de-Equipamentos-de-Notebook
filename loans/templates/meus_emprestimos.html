@@ -1,4 +1,7 @@
+
+
 {% extends 'base.html' %}
+
 
 {% block title %} Meus Empréstimos | SGEN{% endblock %}
 
@@ -7,20 +10,21 @@
 	<h2>Meus Empréstimos</h2>
 	<p class="descricao">Confira seu histórico de Reservas</p>
 
-<div class="container-reservas">
-    <table>
+    <table class="table" >
         <thead>
-            <tr>
-                <th>Aluno</th>
-                <th>Notebook</th>
-                <th>Retirada</th>
-                <th>Devolução</th>
-                <th>Carregador</th>
+            <tr class="text-center" >
+                <th scope="row">Número</th>
+                <th scope="col">Aluno</th>
+                <th scope="col">Notebook</th>
+                <th scope="col">Retirada</th>
+                <th scope="col">Devolução</th>
+                <th scope="col"> Carregador</th>
             </tr>
         </thead>
         <tbody>
             {% for reserva in reservas %}
-            <tr>
+            <tr class="text-center">
+                <th scope="row">1</th>
                 <td>{{ reserva.aluno.get_full_name|default:reserva.aluno.username }}</td>
                 <td>{{ reserva.notebook|default:"Pendente" }}</td>
                 <td>{{ reserva.data_retirada|date:"d/m/Y H:i" }}</td>
@@ -34,10 +38,6 @@
             {% endfor %}
         </tbody>
     </table>
-</div>
-
-
-
 
 </section>
 {% endblock %}

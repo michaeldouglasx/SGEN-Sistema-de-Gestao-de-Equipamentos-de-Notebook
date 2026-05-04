@@ -9,13 +9,13 @@
 
     <form method="post" class="formulario-padrao">
         {% csrf_token %}
-    {% if login_form.non_field_errors %}
-        <div class="alerta-erro">
-            {% for erro in login_form.non_field_errors %}
-                <p>{{ erro }}</p>
-            {% endfor %}
+        {% if login_form.non_field_errors %}
+        {% for erro in login_form.non_field_errors %}   
+        <div class="alert alert-danger" role="alert">
+            {{ erro }}
         </div>
-    {% endif %}
+        {% endfor %}
+        {% endif %}
         <div class="campo">
             <label for="id_login">Usuário</label>
             {{login_form.username}}
@@ -24,7 +24,7 @@
         <div class="campo">
             <label for="id_password">Senha</label>
             {{login_form.password}}
-            
+
         </div>
 
         <div class="opcao">
@@ -36,5 +36,3 @@
     </form>
 </section>
 {% endblock %}
-
-    

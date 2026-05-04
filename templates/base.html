@@ -6,14 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}SGEN{% endblock %}</title>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}?v=20260325-1">
     <link rel="shortcut icon" href="{% static 'images/logoPronta.png' %}" type="image/x-icon">
+
 </head>
 
 <body>
 
     <header class="topo">
-        <div >
+        <div>
             {% if user.is_authenticated %}
             <ul class="menu">
                 <li><a href="{%url 'reserva'%}">Home</a></li>
@@ -21,8 +26,8 @@
                 <li><a href="#">Contato</a></li>
                 <li><a href="{%url 'minhas_reservas'%}">Meus Empréstimos</a></li>
                 {% endif %}
-            </div>
-        
+        </div>
+
 
         <div class="logo-area">
             <a href="{% url 'reserva' %}">
@@ -45,7 +50,7 @@
 
     <main class="area-principal">
 
-        <div class="container-conteudo">
+        <div >
             {% block content %}{% endblock %}
         </div>
     </main>
