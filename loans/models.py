@@ -55,13 +55,13 @@ class Loans(models.Model):
             super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        notebook = self.notebook  
+        notebook = self.notebook
         super().delete(*args, **kwargs)
 
-        notebook.status = "DISPONIVEL"
-        notebook.aluno_atual = '-'
-        notebook.save()
-
+        if notebook:
+            notebook.status = "DISPONIVEL"
+            notebook.aluno_atual = '-'
+            notebook.save()
 
 
     def atualizar_status_inventario(self):

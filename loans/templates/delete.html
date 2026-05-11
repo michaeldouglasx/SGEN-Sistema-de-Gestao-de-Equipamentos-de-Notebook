@@ -1,44 +1,16 @@
 {% extends 'base.html' %}
 
-
 {% block title %} Deletar | SGEN{% endblock %}
 
 {% block content %}
 <section class="card card-reserva">
-	<h2>Deletar Empréstimo?</h2>
-	
+    <h2>Cancelar Reserva?</h2>
 
-    <table class="table" >
-        <thead>
-            <tr class="text-center" >
-                <th scope="row">Número</th>
-                <th scope="col">Aluno</th>
-                <th scope="col">Notebook</th>
-                <th scope="col">Retirada</th>
-                <th scope="col">Devolução</th>
-                <th scope="col"> Carregador</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for reserva in reservas %}
-            <tr class="text-center">
-                <th scope="row">1</th>
-                <td>{{ reserva.aluno.get_full_name|default:reserva.aluno.username }}</td>
-                <td>{{ reserva.notebook|default:"Pendente" }}</td>
-                <td>{{ reserva.data_retirada|date:"d/m/Y H:i" }}</td>
-                <td>{{ reserva.data_devolucao|date:"d/m/Y H:i"|default:"Em aberto" }}</td>
-                <td>{{ reserva.carregador|yesno:"Sim,Não" }}</td>
-            </tr>
-            <form method="post" class="formulario-padrao" action="#">
-                <button type="submit" class="btn-principal">Cancelar Reserva</button>
-            </form>
-            {% empty %}
-            <tr>
-                <td colspan="5">Você ainda não possui reservas para serem excluídas.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <form method="post" class="formulario-padrao">
+        {% csrf_token %}
+        <button type="submit" class="btn-principal">Confirmar Cancelamento</button>
+        <a href="{% url 'minhas_reservas' %}">Voltar</a>
+    </form>
 
 </section>
 {% endblock %}

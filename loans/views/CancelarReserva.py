@@ -8,9 +8,11 @@ class CancelarReservaView(LoginRequiredMixin, DeleteView):
     model = Loans
     success_url = reverse_lazy("minhas_reservas")
     template_name = "delete.html"
-    
 
-    def delete(self, request, *args, kwargs):
-        response = super().delete(request, *args, kwargs)
-        messages.success(request, f'Cancelamento de Reserva realizado com sucesso!')
+    def get_queryset(self):
+        return Loans.objects.filter(aluno=self.request.user)
+
+    def delete(self, request, *args, **kwargs):
+        response = super().delete(request, *args, **kwargs)
+        messages.success(request, 'Cancelamento de Reserva realizado com sucesso!')
         return response
