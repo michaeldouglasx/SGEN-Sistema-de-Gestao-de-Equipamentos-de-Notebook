@@ -12,19 +12,28 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}?v=20260325-1">
     <link rel="shortcut icon" href="{% static 'images/logoPronta.png' %}" type="image/x-icon">
+    
 
 </head>
 
 <body>
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
 
     <header class="topo">
         <div>
             {% if user.is_authenticated %}
             <ul class="menu">
-                <li><a href="{%url 'reserva'%}">Home</a></li>
-                <li><a href="#">Sobre</a></li>
+                <li><a href="{%url 'reserva'%}"></a></li>
+                <li><a href="#">Inicio</a></li>
                 <li><a href="#">Contato</a></li>
                 <li><a href="{%url 'minhas_reservas'%}">Meus Empréstimos</a></li>
+                <li><a href="{%url 'perfil'%}">Perfil</a></li>
                 {% endif %}
         </div>
 

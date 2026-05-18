@@ -21,7 +21,7 @@ class Loans(models.Model):
         verbose_name = 'Empréstimo'
 
     def esta_na_janela_retirada(self, hora):
-            return time(13, 00) <= hora <= time(19, 30)
+            return time(00, 00) <= hora <= time(19, 30)
 
     def esta_na_janela_devolucao(self, hora):
             return time(21, 40) <= hora <= time(22, 0)

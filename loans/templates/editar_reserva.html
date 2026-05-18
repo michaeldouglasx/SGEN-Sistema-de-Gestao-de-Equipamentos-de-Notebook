@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %} Editar | SGEN{% endblock %}
+{% block content %}
+<section class="card card-reserva ">
+    <h2>O que você deseja fazer?</h2>
+
+    <div class="d-flex gap-5 align-items-center">
+        <form method="post" action="{% url 'cancelar_reserva' reserva.pk %}" class="m-0">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Cancelar  Solicitação</button>
+            
+        </form>
+        
+
+        <a href="{% url 'atualizar_reserva' reserva.pk %}" class="btn btn-primary">Atualizar Solicitação</a>
+    </div>
+<br>
+    <a href="{% url 'minhas_reservas' %}">Voltar</a>
+</section>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Editar | SGEN{% endblock %}
+
+{% block content %}
+
+
+
+    
+    
+        
+<section class="card card-reserva">
+    <h2></h2>
+
+    <div class="campo"><label for="">Nome do Aluno</label>
+		<p>
+			{{user.first_name}}
+		</p>
+	</div>
+
+    <form method="post"   class="formulario-padrao" action="{% url 'atualizar_reserva' reserva.pk %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Atualizar</button>
+    </form>
+    
+    <a href="{% url 'minhas_reservas' %}"><button type="button" class="btn btn-primary">Voltar</button></a>
+
+
+{% endblock %}

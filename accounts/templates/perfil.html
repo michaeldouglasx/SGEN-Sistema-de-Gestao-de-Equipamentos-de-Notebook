@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+ 
+{% block title %}Perfil | SGEN{% endblock %}
+ 
+{% block content %}
+<section class="card ">
+ 
+  <div class="perfil-card">
+ 
+    <div >
+      <div class="avatar">
+        {{ user.first_name|first|upper }}{{ user.last_name|first|upper }}
+      </div>
+      <div class="perfil-info">
+        <h2>{{ user.get_full_name }}</h2>
+        <span class="badge">{{ user.email }}</span>
+      </div>
+    </div>
+ 
+    <div class="perfil-body">
+      <div class="campo">
+        <span class="label">Username</span>
+        <span class="valor">{{ user.username }}</span>
+      </div>
+      <div class="campo">
+        <span class="label">E-mail</span>
+        <span class="valor">{{ user.email_academico }}</span>
+      </div>
+      <div class="campo">
+        <span class="label">Membro desde</span>
+        <span class="valor">{{ user.date_joined|date:"d/m/Y" }}</span>
+      </div>
+      <div class="campo">
+        <span class="label">Último acesso</span>
+        <span class="valor">{{ user.last_login|date:"d/m/Y H:i" }}</span>
+      </div>
+    </div>
+ 
+    <div class="perfil-actions">
+      <a href="" class="btn btn-primary">Editar perfil</a>
+      <a href="{%url 'logout'%}" class="btn btn-danger">Sair</a>
+    </div>
+ 
+  </div>
+ 
+</section>
+
+{%endblock%}
