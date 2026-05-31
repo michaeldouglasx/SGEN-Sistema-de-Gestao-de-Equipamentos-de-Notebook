@@ -17,10 +17,11 @@ class ReservaView(LoginRequiredMixin, CreateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        form.instance.aluno = self.request.user 
+        form.instance.aluno = self.request.user
         return form
     
     def form_valid(self, form):
+    
         return super().form_valid(form)
     
     

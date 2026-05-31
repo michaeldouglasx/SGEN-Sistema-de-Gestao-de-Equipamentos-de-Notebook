@@ -1,0 +1,58 @@
+{%extends 'base.html'%}
+{% block title %}Edital Perfil{% endblock %}
+
+{% block content %}
+
+
+<section class="card card-cadastro">
+    <h2>Atualizar Dados - SGEN</h2>
+    <p class="descricao">Preencha os dados abaixo para atualizar sua conta.</p>
+
+    <form method="post" class="formulario-padrao">
+        {% csrf_token %}
+        
+        <div class="campo">
+            <label>Nome:</label>
+            {{ form.first_name }}
+        </div>
+
+        <div class="campo">
+            <label>Sobrenome:</label>
+            {{ form.last_name }}
+        </div>
+
+        
+
+        <div class="campo">
+            <label>Telefone:</label>
+            {{ form.phone }}
+        </div>
+
+        
+
+    {% if formulario.non_field_errors %}
+    <div class="alerta-erro">
+        {% for erro in formulario.non_field_errors %}
+            <p>{{ erro }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+
+
+        {% if form.errors %}
+        <div class="mensagem-erro">
+            {{ form.errors }}
+        </div>
+        {% endif %}
+
+
+
+        <button type="submit" class="btn-principal">Atualizar Cadastro</button>
+    </form>
+
+
+
+
+
+
+{% endblock %}

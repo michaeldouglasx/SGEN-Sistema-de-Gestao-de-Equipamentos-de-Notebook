@@ -25,7 +25,7 @@ class LoansAdmin(admin.ModelAdmin):
     )
 
     
-    readonly_fields = ('aluno', 'carregador')
+    readonly_fields = ('aluno', 'carregador', 'status')
 
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):

@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from datetime import time
 
+STATUS_CHOICES = [("PENDENTE", "Pendente"),("ATIVO", "Ativo"),("DEVOLVIDO","Devolvido"),("CANCELADO", "Cancelado")]
+
 class Loans(models.Model):
     aluno = models.ForeignKey("accounts.User", on_delete=models.PROTECT, verbose_name="Aluno" )
     notebook = models.ForeignKey("inventory.Notebook", on_delete=models.PROTECT, null=True, blank=True)
@@ -12,6 +14,7 @@ class Loans(models.Model):
     horario = models.TimeField(auto_now_add=True, verbose_name='Hora do pedido')
     emprestado = models.BooleanField(default=False)
     comprovante = models.FileField(upload_to="comprovante/", blank=True, null=True)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="PENDENTE")
 
 
     def __str__(self):
@@ -46,12 +49,8 @@ class Loans(models.Model):
 
     def save(self, *args, **kwargs):
             self.full_clean()
-
-
             if self.notebook and self.emprestado:
-
                 self.atualizar_status_inventario()
-
             super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
@@ -70,57 +69,13 @@ class Loans(models.Model):
         else:
             self.notebook.status = 'EMPRESTADO'
 
-        self.notebook.save()  
+        self.notebook.save()
 
 
     def verificar_emprestimo_ativo(self):
-         
-         if not self.data_devolucao:  
+        if not self.data_devolucao:
         
             existe = Loans.objects.filter(
-                 aluno_id=self.aluno_id, data_devolucao__isnull=True).exclude(pk=self.pk).exists()
+                aluno_id=self.aluno_id, status__in=["ATIVO", "PENDENTE"]).exclude(pk=self.pk).exists()
             if existe:
                 raise ValidationError("Atenção! Você possui solicitações ou empréstimos ativos!")
-            
-
-            
-
-         
-
-    
-
-        
-
-
-
-    
-        
-       
-             
-        
-        
-
-         
-
-    
-         
-
-
-
-
-        
-            
-        
-        
-        
-        
-        
-            
-        
-
-
-        
-
-
-        
-    
