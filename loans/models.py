@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from datetime import time
 
+
 STATUS_CHOICES = [("PENDENTE", "Pendente"),("ATIVO", "Ativo"),("DEVOLVIDO","Devolvido"),("CANCELADO", "Cancelado")]
 
 class Loans(models.Model):
@@ -32,6 +33,8 @@ class Loans(models.Model):
 
 
     def clean(self):
+        from inventory.models import Notebook
+        Notebook.verificar_disponibilidade()
         self.verificar_emprestimo_ativo()
         agora = timezone.localtime().replace(second=0, microsecond=0).time()
         
@@ -79,3 +82,7 @@ class Loans(models.Model):
                 aluno_id=self.aluno_id, status__in=["ATIVO", "PENDENTE"]).exclude(pk=self.pk).exists()
             if existe:
                 raise ValidationError("Atenção! Você possui solicitações ou empréstimos ativos!")
+            
+    
+    
+            

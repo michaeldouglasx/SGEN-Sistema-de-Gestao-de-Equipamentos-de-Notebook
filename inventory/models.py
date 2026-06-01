@@ -1,15 +1,13 @@
 from django.db import models
 from loans.models import Loans
 from django.core.validators import MaxValueValidator, MinValueValidator
-
-
+from django.core.exceptions import ValidationError
 
 STATUS = [
     ("DISPONIVEL", "Disponível"),
     ("MANUTENCAO", "Manutenção"),
     ("EMPRESTADO", "Emprestado"),
 ]
-
 
 class Color(models.Model):
     name_color = models.CharField( max_length=40, verbose_name='Nome da cor', unique=True)
@@ -27,7 +25,6 @@ class Brand(models.Model):
         return self.brand
     class Meta:
         verbose_name = 'Marca'
-
 
 
 class Notebook(models.Model):
@@ -50,9 +47,9 @@ class Notebook(models.Model):
         return f"{self.numero_patrimonio} - {self.marca}"
     class Meta:
         verbose_name = 'Notebook'
-        
 
-
-    
-
-
+    @classmethod
+    def verificar_disponibilidade(cls):
+        disponivel = cls.objects.filter(status = 'DISPONIVEL').exists()
+        if not disponivel:
+            raise ValidationError("Não há notebooks disponíveis no momento!")

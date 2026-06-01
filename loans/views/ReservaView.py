@@ -4,6 +4,7 @@ from loans.forms import EmprestimoForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from ..models import Loans
 from django.urls import reverse_lazy
+from inventory.models import Notebook
 
 
 
@@ -21,7 +22,7 @@ class ReservaView(LoginRequiredMixin, CreateView):
         return form
     
     def form_valid(self, form):
-    
+        
         return super().form_valid(form)
     
     
