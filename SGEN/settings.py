@@ -147,6 +147,12 @@ JAZZMIN_SETTINGS = {
     "navigation_expanded": True,
     "show_ui_builder": True,
     "site_logo": "images/logoPronta.png",
+    "hide_models": ['inventory.Color', 'inventory.Brand'],
+    
+    
+    
+
+
     
     
 }

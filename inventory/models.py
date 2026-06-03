@@ -13,9 +13,22 @@ class Color(models.Model):
     name_color = models.CharField( max_length=40, verbose_name='Nome da cor', unique=True)
     def __str__(self):
         return  self.name_color
+    
+    def padronizar_cor(self):
+        self.name_color = self.name_color.title()
+    
+    def save(self, *args, **kwargs):
+        self.padronizar_cor()
+        return super().save(*args, **kwargs)
+
+
+    
+    
     class Meta:
         verbose_name = 'Cor'
         verbose_name_plural= "Cores"
+
+
 
 class Brand(models.Model):
     id = models.AutoField(primary_key=True,null=False)
@@ -25,6 +38,7 @@ class Brand(models.Model):
         return self.brand
     class Meta:
         verbose_name = 'Marca'
+        verbose_name = 'Marcas'
 
 
 class Notebook(models.Model):
