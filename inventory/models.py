@@ -34,6 +34,13 @@ class Brand(models.Model):
     id = models.AutoField(primary_key=True,null=False)
     brand = models.CharField(max_length=50, unique=True)
 
+    def formatar_nome(self):
+        self.brand = self.brand.capitalize()
+
+    def save(self, *args, **kwargs):
+        self.formatar_nome()
+        return super().save(*args, **kwargs)
+
     def __str__(self):
         return self.brand
     class Meta:
@@ -67,3 +74,10 @@ class Notebook(models.Model):
         disponivel = cls.objects.filter(status = 'DISPONIVEL').exists()
         if not disponivel:
             raise ValidationError("Não há notebooks disponíveis no momento!")
+        
+    def formatar_nome_modelo(self):
+        self.modelo = self.modelo.title()
+
+    def save(self, *args, **kwargs ):
+        self.formatar_nome_modelo()
+        return super().save(*args, **kwargs)

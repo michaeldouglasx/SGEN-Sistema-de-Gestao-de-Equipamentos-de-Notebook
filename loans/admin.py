@@ -8,7 +8,7 @@ class LoansAdmin(admin.ModelAdmin):
     
     list_display = ('aluno', 'data_retirada', 'horario', 'notebook', 'emprestado')
     
-   
+
     list_filter = ('emprestado', 'data_retirada')
     
     

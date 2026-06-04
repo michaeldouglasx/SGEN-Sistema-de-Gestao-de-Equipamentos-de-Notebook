@@ -34,7 +34,7 @@
         <span class="label">Último acesso</span>
         <span class="valor">{{ user.last_login|date:"d/m/Y H:i" }}</span>
       </div>
-    </div> 
+    </div>
 
     <div class="perfil-actions">
       <a href="{% url 'editar_perfil' pk=request.user.pk %}" class="btn btn-primary">Editar perfil</a>
