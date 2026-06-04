@@ -62,7 +62,6 @@ class Loans(models.Model):
 
         if notebook:
             notebook.status = "DISPONIVEL"
-            notebook.aluno_atual = '-'
             notebook.save()
 
 
@@ -82,7 +81,3 @@ class Loans(models.Model):
                 aluno_id=self.aluno_id, status__in=["ATIVO", "PENDENTE"]).exclude(pk=self.pk).exists()
             if existe:
                 raise ValidationError("Atenção! Você possui solicitações ou empréstimos ativos!")
-            
-    
-    
-            

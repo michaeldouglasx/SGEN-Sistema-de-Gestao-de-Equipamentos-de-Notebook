@@ -81,3 +81,5 @@ class Notebook(models.Model):
     def save(self, *args, **kwargs ):
         self.formatar_nome_modelo()
         return super().save(*args, **kwargs)
+    
+    
