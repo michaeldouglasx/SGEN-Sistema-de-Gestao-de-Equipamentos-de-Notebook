@@ -7,8 +7,8 @@ from datetime import time
 STATUS_CHOICES = [("PENDENTE", "Pendente"),("ATIVO", "Ativo"),("DEVOLVIDO","Devolvido"),("CANCELADO", "Cancelado")]
 
 class Loans(models.Model):
-    aluno = models.ForeignKey("accounts.User", on_delete=models.PROTECT, verbose_name="Aluno" )
-    notebook = models.ForeignKey("inventory.Notebook", on_delete=models.PROTECT, null=True, blank=True)
+    aluno = models.ForeignKey("accounts.User", on_delete=models.PROTECT, verbose_name="Aluno", related_name='alunos')
+    notebook = models.ForeignKey("inventory.Notebook", on_delete=models.PROTECT, null=True, blank=True, related_name='notebooks')
     carregador = models.BooleanField(default=False)
     data_retirada = models.DateTimeField(auto_now_add=True, verbose_name="Data de Retirada")
     data_devolucao = models.DateTimeField(null=True,blank=True, verbose_name="Data de Devolução")

@@ -9,18 +9,66 @@ def Login_View(request):
         login_form = AuthenticationForm(request, data=request.POST)
 
         if login_form.is_valid():
+
             user = login_form.get_user()
-            login(request,user)
 
-            url_destino = 'admin:index' if user.is_superuser else 'reserva'
-            return redirect(url_destino)
-        
-        login_form.errors.clear()
-        login_form.add_error(None, 'Usuário ou senha inválidos!')
+            if not user.is_active:
+                login_form.add_error(
+                    None,
+                    "Sua conta não está ativa"
+                )
+                return render(
+                    request,
+                    'login.html',
+                    {'login_form': login_form}
+                )
+
+            login(request, user)
+
+            if user.profile == 1 or user.is_superuser:
+                return redirect('admin:index')
+
+            return redirect('reserva')
+
+        login_form.add_error(
+            None,
+            'Usuário ou senha inválidos!'
+        )
+
     else:
-            login_form = AuthenticationForm()
+        login_form = AuthenticationForm()
 
-    return render(request, 'login.html', {'login_form': login_form})
+    return render(
+        request,
+        'login.html',
+        {'login_form': login_form}
+    )
+        
+                                  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 

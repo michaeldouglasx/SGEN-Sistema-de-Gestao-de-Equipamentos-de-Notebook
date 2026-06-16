@@ -20,15 +20,17 @@ class CadastroForm(forms.Form):
 
     def save(self):
         user = User(
-            first_name = self.cleaned_data['first_name'],
-            last_name = self.cleaned_data['last_name'],
-            email_academico = self.cleaned_data['email_academico'],
-            phone = self.cleaned_data['phone'],
-            username =self.cleaned_data['email_academico']
+            first_name = self.cleaned_data.get('first_name'),
+            last_name = self.cleaned_data.get('last_name'),
+            email_academico = self.cleaned_data.get('email_academico'),
+            phone = self.cleaned_data.get('phone'),
+            username = self.cleaned_data.get('email_academico')
+
         )
 
         user.is_staff = False
-        user.is_superuser = False
+        user.is_active = False
+        
 
         senha = self.cleaned_data.get("password")
         user.set_password(senha)
@@ -44,18 +46,15 @@ class CadastroForm(forms.Form):
         return email
     
     def clean(self):
+        cleaned_data = super().clean()
         senha_digitada = self.cleaned_data.get("password")
         confirmacao_de_senha_digitada = self.cleaned_data.get("confirm_password")
 
         if senha_digitada != confirmacao_de_senha_digitada:
             raise forms.ValidationError("Senhas não são idênticas")
         else:
-            return self.cleaned_data
+            return cleaned_data
         
-
-
-
-
 
 class RecuperarSenhaForm(ModelForm):
     class Meta:
@@ -76,12 +75,20 @@ class RecuperarSenhaForm(ModelForm):
     
 
 class RedefinirSenhaForm(forms.Form):
-    nova_senha = forms.CharField(widget=forms.PasswordInput, label= 'Nova Senha')
-    confirmacao_senha = forms.CharField(widget=forms.PasswordInput, label= 'Digite a senha novamente')
+    nova_senha = forms.CharField(widget=forms.PasswordInput, label= 'Nova Senha', min_length=8)
+    confirmacao_senha = forms.CharField(widget=forms.PasswordInput, label= 'Digite a senha novamente', min_length=8)
 
     def clean(self):
         senha = self.cleaned_data.get('nova_senha')
+        self.validar_senha(senha)
         confirmar = self.cleaned_data.get('confirmacao_senha')
         if senha != confirmar:
             raise forms.ValidationError("Senhas não são identicas")
         return self.cleaned_data
+    
+    def validar_senha(self, senha):
+        if not senha:
+            return
+        tamanho = len(senha)
+        if tamanho < 8:
+            raise forms.ValidationError("Senha: A senha cadastrada possui menos de 8 caracteres")
