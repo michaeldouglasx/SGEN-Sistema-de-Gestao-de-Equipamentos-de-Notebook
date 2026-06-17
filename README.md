@@ -6,7 +6,7 @@ O objetivo é controlar patrimônio, registrar empréstimos e devoluções, e of
 ## Tecnologias utilizadas
 
 - Backend / Web: Python / Django
-- Banco de Dados: (preencher com o SGBD utilizado, por exemplo PostgreSQL, SQLite, MySQL etc.)
+- Banco de Dados: SQLite
 - ORM: Django ORM
 - Controle de versão: Git / GitHub
 
