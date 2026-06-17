@@ -56,23 +56,32 @@ class CadastroForm(forms.Form):
             return cleaned_data
         
 
-class RecuperarSenhaForm(ModelForm):
-    class Meta:
-        model = User
-        fields = ['email_academico']
+class RecuperarSenhaForm(forms.Form):
+    email_academico = forms.EmailField()
 
     def clean_email_academico(self):
         email = self.cleaned_data.get('email_academico')
+
         if not User.objects.filter(email_academico=email).exists():
-            raise forms.ValidationError("E-mail não cadastrado!")
+            raise forms.ValidationError(
+                "E-mail não cadastrado!"
+            )
+
         return email
-    
+
     def save(self):
         email = self.cleaned_data.get('email_academico')
-        usuario = User.objects.get(email_academico=email)
-        token = TokenRecuperacao.objects.create(usuario=usuario)
+
+        usuario = User.objects.get(
+            email_academico=email
+        )
+
+        token = TokenRecuperacao.objects.create(
+            usuario=usuario
+        )
+
         return token
-    
+
 
 class RedefinirSenhaForm(forms.Form):
     nova_senha = forms.CharField(widget=forms.PasswordInput, label= 'Nova Senha', min_length=8)

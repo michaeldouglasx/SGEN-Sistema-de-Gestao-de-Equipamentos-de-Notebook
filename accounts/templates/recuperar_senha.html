@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {%  block content %}
+
 <section class="card card-login">
     <h2>Recuperar Senha</h2>
     <p class="descricao"></p>
-
-    <form method="post" class="formulario-padrao" action="#">
+    <form method="post" class="formulario-padrao">
         {% csrf_token %}
 
         <div class="campo">
@@ -22,4 +22,5 @@
     </form>
     <p class="opcao"><a href="{% url 'login' %}"> Voltar </a></p>
 </section>
+
 {% endblock %}

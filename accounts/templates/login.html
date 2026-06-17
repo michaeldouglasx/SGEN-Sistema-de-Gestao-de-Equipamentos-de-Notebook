@@ -1,39 +1,85 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Login | SGEN{% endblock %}
 
 {% block content %}
 
-<section class="card card-login">
-    <h2>Entrar no SGEN</h2>
-    <p class="descricao">Use seu login institucional para continuar.</p>
+<section class="bg-dark py-5">
 
-    <form method="post" class="formulario-padrao">
-        {% csrf_token %}
-        {% if login_form.non_field_errors %}
-        {% for erro in login_form.non_field_errors %}   
-        <div class="alert alert-danger" role="alert">
-            {{ erro }}
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-md-6 col-lg-4 pt-5">
+
+                <div class="card shadow border-0">
+                    <div class="card-body p-4">
+
+                        <div class="text-center mb-4">
+                            <img src="{% static 'images/logoPronta.png' %}" alt="Logo SGEN" width="120">
+
+                            <h2 class="mt-3">Entrar no SGEN</h2>
+                            <p class="text-muted">
+                                Use seu login institucional para continuar.
+                            </p>
+                        </div>
+
+                        <form method="post">
+
+                            {% csrf_token %}
+
+                            {% if login_form.non_field_errors %}
+                            {% for erro in login_form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ erro }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                            <div class="mb-3">
+                                <label class="form-label">E-mail</label>
+                                {{ login_form.username }}
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Senha</label>
+                                {{ login_form.password }}
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    Entrar
+                                </button>
+                            </div>
+
+                            <div class="text-center mt-3">
+
+                                <a href="{% url 'cadastro' %}" class="text-decoration-none me-3">
+                                    <i class="bi bi-person-plus"></i>
+                                    Cadastrar-se
+                                </a>
+
+                                <span class="text-muted">|</span>
+
+                                <a href="{% url 'recuperar_senha' %}" class="text-decoration-none ms-3">
+                                    <i class="bi bi-key"></i>
+                                    Recuperar Senha
+                                </a>
+
+                            </div>
+                            </a>
+                    </div>
+
+                    </form>
+
+                </div>
+            </div>
+
         </div>
-        {% endfor %}
-        {% endif %}
-        <div class="campo">
-            <label for="id_login">Usuário</label>
-            {{login_form.username}}
-        </div>
 
-        <div class="campo">
-            <label for="id_password">Senha</label>
-            {{login_form.password}}
+    </div>
+    </div>
 
-        </div>
-
-        <div class="opcao">
-            <p class="opcao"><a href="{% url 'recuperar_senha' %}">Esqueci a senha</a></p>
-            <p class="opcao"><a href="{% url 'cadastro' %}"> Cadastre-se </a></p>
-        </div>
-
-        <button type="submit" class="btn-principal">Entrar</button>
-    </form>
 </section>
+
 {% endblock %}

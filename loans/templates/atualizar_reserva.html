@@ -1,30 +1,92 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %} Editar | SGEN{% endblock %}
+{% block title %} Atualizar Reserva | SGEN{% endblock %}
 
 {% block content %}
+<section class="py-5 bg-light min-vh-100 d-flex align-items-center">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
 
+				<div class="card shadow-sm border-0 rounded-3 p-2 p-md-4 bg-white">
+					
+					<div class="card-header bg-white border-0 pt-3 pb-0">
+						<h2 class="fw-bold text-dark mb-1">Atualizar Dados da Solicitação</h2>
+						<p class="text-muted">Modifique as opções desejadas abaixo para atualizar a sua reserva de equipamento.</p>
+						<hr class="text-muted opacity-25 my-4">
+					</div>
 
+					<div class="card-body py-0">
+						
+						<div class="p-3 bg-light rounded-3 border d-flex align-items-center mb-4">
+							<div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+								<i class="bi bi-person-gear fs-4"></i>
+							</div>
+							<div>
+								<span class="text-muted d-block small text-uppercase fw-semibold" style="letter-spacing: 0.5px; font-size: 0.75rem;">Aluno Solicitante</span>
+								<h5 class="mb-0 fw-bold text-dark">{{ user.get_full_name|default:user.first_name }}</h5>
+							</div>
+						</div>
 
-    
-    
-        
-<section class="card card-reserva">
-    <h2></h2>
+						{% if form.errors %}
+						<div class="alert alert-danger border-0 shadow-sm mb-4">
+							<h6 class="fw-bold mb-2"><i class="bi bi-exclaim-triangle-fill me-2"></i> Por favor, corrija os erros abaixo:</h6>
+							<ul class="mb-0 small ps-3">
+								{% for field in form %}
+									{% for error in field.errors %}
+										<li><strong>{{ field.label }}:</strong> {{ error }}</li>
+									{% endfor %}
+								{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
 
-    <div class="campo"><label for="">Nome do Aluno</label>
-		<p>
-			{{user.first_name}}
-		</p>
+						<form method="post" action="{% url 'atualizar_reserva' reserva.pk %}" class="django-form-custom">
+							{% csrf_token %}
+							
+							<div class="mb-4 text-dark">
+								{{ form.as_p }}
+							</div>
+
+							<div class="d-flex flex-column flex-md-row justify-content-md-end gap-2 mt-5 pt-3 border-top">
+								<a href="{% url 'minhas_reservas' %}" class="btn btn-light btn-lg px-4 text-muted fw-medium order-2 order-md-1">
+									Cancelar e Voltar
+								</a>
+								<button type="submit" class="btn btn-success btn-lg px-5 fw-bold shadow-sm order-1 order-md-2">
+									<i class="bi bi-check-lg me-2"></i>Salvar Alterações
+								</button>
+							</div>
+
+						</form>
+						</div>
+				</div>
+				</div>
+		</div>
 	</div>
+</section>
 
-    <form method="post"   class="formulario-padrao" action="{% url 'atualizar_reserva' reserva.pk %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Atualizar</button>
-    </form>
-    
-    <a href="{% url 'minhas_reservas' %}"><button type="button" class="btn btn-primary">Voltar</button></a>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		
+		const fields = document.querySelectorAll('.django-form-custom p input, .django-form-custom p select, .django-form-custom p textarea');
+		
+		fields.forEach(field => {
+			if (field.type === 'checkbox') {
+				
+				field.classList.add('form-check-input');
+				field.parentElement.classList.add('form-check', 'form-switch', 'p-3', 'border', 'rounded-3', 'bg-light', 'mb-3');
+			} else {
+				
+				field.classList.add('form-control', 'mb-3');
+			}
+		});
 
-
+		
+		const labels = document.querySelectorAll('.django-form-custom p label');
+		labels.forEach(label => {
+			label.classList.add('form-label', 'fw-semibold', 'text-secondary', 'd-block');
+		});
+	});
+</script>
 {% endblock %}

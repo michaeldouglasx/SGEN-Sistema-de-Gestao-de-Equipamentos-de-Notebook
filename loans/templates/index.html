@@ -1,39 +1,120 @@
-
 {% extends 'base.html' %}
-
-{% block title %}Reserva | SGEN{% endblock %}
+{% load static %}
+{% block title %}Solicitar Reserva | SGEN{% endblock %}
 
 {% block content %}
-<section class="card card-reserva">
-	<h2>Reserva de Equipamento</h2>
-	<p class="descricao">Solicite um notebook informando os dados da reserva.</p>
-
-	{% if form.errors %}
-		<div>
-		{%for i in form.non_field_errors %}
-		<p>{{i}}</p>
-		{%endfor%}
+<section class="py-5 bg-light min-vh-100 d-flex align-items-center">
+	<div class="container">
+		{% if form.errors %} <div class="alert alert-danger border-0 shadow-sm mb-4">
+			<h5 class="fw-bold"><i class="bi bi-exclaim-triangle-fill me-2"></i> Não foi possível salvar
+				a reserva:</h5>
+			<ul class="mb-0">
+				{% for field in form %}
+				{% for error in field.errors %}
+				<li><strong>{{ field.label }}:</strong> {{ error }}</li>
+				{% endfor %}
+				{% endfor %}
+				{% for error in form.non_field_errors %}
+				<li>{{ error }}</li>
+				{% endfor %}
+			</ul>
 		</div>
-		{%endif%}
+		{% endif %}
+		<div class="row justify-content-center">
 
-	<div class="campo"><label for="">Nome do Aluno</label>
-		<p>
-			{{user.first_name}}
-		</p>
+			<div class="col-md-10 col-lg-8">
 
+
+				<div class="card shadow-sm border-0 rounded-3 p-2 p-md-4">
+
+
+					<div class="card-header bg-white border-0 pt-3 pb-0">
+						<h2 class="fw-bold text-dark mb-1">Solicitar Empréstimo de Equipamento</h2>
+						<p class="text-muted">Confirme os dados do aluno solicitante e selecione os acessórios
+							necessários para a reserva.</p>
+						<hr class="text-muted opacity-25 my-4">
+					</div>
+
+
+					<div class="card-body py-0">
+
+
+						<div class="p-3 bg-light rounded-3 border d-flex align-items-center mb-4">
+							<div class="bg-primary bg-opacity-10 text-primary rounded-circle p-3 me-3 d-flex align-items-center justify-content-center"
+								style="width: 50px; height: 50px;">
+								<i class="bi bi-person-badge fs-4"></i>
+							</div>
+							<div>
+								<span class="text-muted d-block small text-uppercase fw-semibold"
+									style="letter-spacing: 0.5px; font-size: 0.75rem;">Aluno Solicitante</span>
+								<h5 class="mb-0 fw-bold text-dark">{{ user.get_full_name|default:user.first_name }}</h5>
+							</div>
+						</div>
+
+
+
+
+
+
+						<form method="post" class="needs-validation">
+							{% csrf_token %}
+
+							{% for hidden in form.hidden_fields %}
+							{{ hidden }}
+							{% endfor %}
+
+
+							<div class="mb-4">
+								<label class="form-label fw-bold text-dark mb-2 fs-5">Acessórios Opcionais</label>
+
+								<div
+									class="form-check p-3 border rounded-3 d-flex align-items-center bg-white shadow-xs custom-checkbox-card">
+									<input class="form-check-input ms-1 me-3 fs-4" type="checkbox"
+										name="{{ form.carregador.html_name }}" id="{{ form.carregador.id_for_label }}"
+										{% if form.carregador.value %}checked{% endif %}>
+
+									<label class="form-check-label flex-grow-1"
+										for="{{ form.carregador.id_for_label }}">
+										<span class="d-block fw-semibold text-dark fs-5">Necessito de Carregador / Fonte
+											de
+											Alimentação</span>
+										<span class="text-muted small d-block mt-1">Marque esta opção caso vá utilizar o
+											notebook por longos períodos fora das tomadas padrão do campus.</span>
+									</label>
+								</div>
+							</div>
+
+
+							<div
+								class="d-flex flex-column flex-md-row justify-content-md-end gap-2 mt-5 pt-3 border-top">
+								<a href="{% url 'minhas_reservas' %}"
+									class="btn btn-light btn-lg px-4 text-muted fw-medium order-2 order-md-1">
+									Cancelar
+								</a>
+								<button type="submit"
+									class="btn btn-primary btn-lg px-5 fw-bold shadow-sm order-1 order-md-2">
+									Confirmar e Solicitar Reserva
+								</button>
+							</div>
+
+						</form>
+
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
 	</div>
-	<form method="post" class="formulario-padrao" action="#">
-		{% csrf_token %}
-		<div class="campo">
-			<label for="{{ form.carregador.id_for_label }}">Carregador?</label>
-			<label class="carregador-opcao" for="{{ form.carregador.id_for_label }}">
-				<input type="checkbox" name="{{ form.carregador.html_name }}" id="{{ form.carregador.id_for_label }}" {%if form.carregador.value %}checked{% endif %}>
-				<span>Sim, preciso de carregador</span>
-			</label>
-		</div>
-		<button type="submit" class="btn-principal">Solicitar Reserva</button>
-	</form>
 </section>
 
 
+<style>
+	.custom-checkbox-card:hover {
+		border-color: #0d6efd !important;
+		background-color: #f8f9fa !important;
+		cursor: pointer;
+	}
+</style>
 {% endblock %}

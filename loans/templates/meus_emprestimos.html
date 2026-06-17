@@ -1,45 +1,108 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block title %} Meus Empréstimos | SGEN{% endblock %}
 
 {% block content %}
-<section class="card card-reserva">
-    <h2>Meus Empréstimos</h2>
-    <p class="descricao">Confira seu histórico de Reservas</p>
+<section class="py-5 bg-light min-vh-100">
+	<div class="container-fluid px-md-5">
+		<div class="row justify-content-center">
+			<div class="col-12 col-xl-11">
 
-    <table class="table">
-        <thead>
-            <tr class="text-center">
-                
-                <th scope="col">Aluno</th>
-                <th scope="col">Notebook</th>
-                <th scope="col">Retirada</th>
-                <th scope="col">Devolução</th>
-                <th scope="col"> Carregador</th>
-                <th scope="col"> Status</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-            {% for reserva in reservas %}
-            <tr class="text-center">
-                
-                <td>{{ reserva.aluno.get_full_name|default:reserva.aluno.username }}</td>
-                <td>{{ reserva.notebook|default:"-" }}</td>
-                <td>{{ reserva.data_retirada|date:"d/m/Y H:i" }}</td>
-                <td>{{ reserva.data_devolucao|date:"d/m/Y H:i"|default:"-" }}</td>
-                <td>{{ reserva.carregador|yesno:"Sim,Não" }}</td>
-                <td>{{ reserva.status }}</td>
-                <td> <a href="{% url 'editar_reserva' reserva.pk %}"><button type="button" class="btn btn-dark disabled" _msttexthash="78650"_msthash="131">Editar</button></a></td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="5">Você ainda não possui reservas.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+				<div class="card shadow-sm border-0 rounded-3 p-3 p-md-4 bg-white">
+					
+					<div class="card-header bg-white border-0 pt-3 pb-0 d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-3">
+						<div>
+							<h2 class="fw-bold text-dark mb-1">Meus Empréstimos</h2>
+							<p class="text-muted mb-0">Confira abaixo o histórico completo das suas reservas de equipamentos.</p>
+						</div>
+						<div>
+							<a href="{% url 'reserva' %}" class="btn btn-primary fw-bold px-4 py-2 shadow-sm">
+								<i class="bi bi-plus-lg me-2"></i>Nova Solicitação
+							</a>
+						</div>
+					</div>
 
+					<hr class="text-muted opacity-25 my-4">
+
+					<div class="card-body p-0">
+						<div class="table-responsive">
+							<table class="table table-hover align-middle mb-0">
+								<thead class="table-light text-secondary uppercase fw-semibold small">
+									<tr>
+										<th scope="col" class="ps-4">Aluno</th>
+										<th scope="col">Notebook</th>
+										<th scope="col" class="text-center">Retirada</th>
+										<th scope="col" class="text-center">Devolução</th>
+										<th scope="col" class="text-center">Carregador</th>
+										<th scope="col" class="text-center">Status</th>
+										<th scope="col" class="text-end pe-4">Ações</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for reserva in reservas %}
+									<tr>
+										<td class="ps-4 fw-medium text-dark">
+											{{ reserva.aluno.get_full_name|default:reserva.aluno.username }}
+										</td>
+										
+										<td>
+											<span class="badge bg-secondary bg-opacity-10 text-secondary fw-semibold px-2 py-1.5 fs-7">
+												<i class="bi bi-laptop me-1"></i>{{ reserva.notebook|default:"Não atribuído" }}
+											</span>
+										</td>
+										
+										<td class="text-center text-muted small">
+											{{ reserva.data_retirada|date:"d/m/Y H:i" }}
+										</td>
+										
+										<td class="text-center text-muted small">
+											{{ reserva.data_devolucao|date:"d/m/Y H:i"|default:"—" }}
+										</td>
+										
+										<td class="text-center">
+											{% if reserva.carregador %}
+												<span class="text-success fw-semibold"><i class="bi bi-check-circle-fill me-1"></i>Sim</span>
+											{% else %}
+												<span class="text-muted"><i class="bi bi-x-circle me-1"></i>Não</span>
+											{% endif %}
+										</td>
+										
+										<td class="text-center">
+											{% if reserva.status == 'Aprovado' or reserva.status == 'Ativo' %}
+												<span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2 fw-bold">Ativo</span>
+											{% elif reserva.status == 'Pendente' %}
+												<span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-2 fw-bold">Pendente</span>
+											{% else %}
+												<span class="badge bg-light text-dark border rounded-pill px-3 py-2 fw-bold">{{ reserva.status }}</span>
+											{% endif %}
+										</td>
+										
+										<td class="text-end pe-4">
+											<a href="{% url 'editar_reserva' reserva.pk %}" class="btn btn-outline-dark btn-sm fw-medium px-3 {% if reserva.status != 'Pendente' %}disabled opacity-50{% endif %}">
+												<i class="bi bi-pencil-square me-1"></i>Editar
+											</a>
+										</td>
+									</tr>
+									{% empty %}
+									<tr>
+										<td colspan="7" class="text-center py-5">
+											<div class="text-muted mb-3">
+												<i class="bi bi-archive fs-1 opacity-50"></i>
+											</div>
+											<h5 class="text-dark fw-semibold">Nenhum empréstimo encontrado</h5>
+											<p class="text-muted small mb-0">Você ainda não realizou solicitações no sistema.</p>
+										</td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+				</div>
+		</div>
+	</div>
 </section>
 {% endblock %}

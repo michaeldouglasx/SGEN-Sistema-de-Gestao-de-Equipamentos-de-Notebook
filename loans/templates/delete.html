@@ -1,25 +1,56 @@
 {% extends 'base.html' %}
 
-{% block title %} Deletar | SGEN{% endblock %}
+{% block title %} Cancelar Reserva | SGEN{% endblock %}
 
 {% block content %}
-<section class="card card-reserva">
-    <h2>Cancelar Reserva?</h2>
+<section class="py-5 bg-light min-vh-100 d-flex align-items-center">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8 col-lg-6">
 
-    <form method="post" class="formulario-padrao">
-        {% csrf_token %}
-        {% if form.non_field_errors %}
-        <div class=>
-            <ul>
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-        <button type="submit" class="btn-principal">Confirmar Cancelamento</button>
-        <a href="{% url 'minhas_reservas' %}">Voltar</a>
-    </form>
+				<div class="card shadow-sm border-0 rounded-3 p-3 p-md-4 bg-white">
+					
+					<div class="card-header bg-white border-0 pt-3 text-center">
+						<div class="text-danger mb-3">
+							<i class="bi bi-exclamation-triangle fs-1"></i>
+						</div>
+						<h3 class="fw-bold text-dark mb-1">Cancelar Reserva?</h3>
+						<p class="text-muted small px-3">
+							Tem certeza de que deseja cancelar esta solicitação de empréstimo? Esta ação não poderá ser desfeita.
+						</p>
+					</div>
 
+					<div class="card-body">
+						
+						{% if form.non_field_errors %}
+						<div class="alert alert-danger border-0 small mb-4">
+							<ul class="mb-0 ps-3">
+								{% for error in form.non_field_errors %}
+									<li>{{ error }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
+
+						<form method="post">
+							{% csrf_token %}
+							
+							<div class="d-grid gap-2 mt-4">
+								<button type="submit" class="btn btn-danger btn-lg fw-bold shadow-sm">
+									Confirmar Cancelamento
+								</button>
+								<a href="{% url 'minhas_reservas' %}" class="btn btn-light btn-lg text-muted fw-medium border-0">
+									Voltar para Meus Empréstimos
+								</a>
+							</div>
+
+						</form>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
 </section>
 {% endblock %}

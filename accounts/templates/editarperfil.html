@@ -1,58 +1,89 @@
-{%extends 'base.html'%}
-{% block title %}Edital Perfil{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Perfil | SGEN{% endblock %}
 
 {% block content %}
+<section class="py-5 bg-light min-vh-100 d-flex align-items-center">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
 
+				<div class="card shadow-sm border-0 rounded-3 p-2 p-md-4 bg-white">
+					
+					<div class="card-header bg-white border-0 pt-3 pb-0">
+						<h2 class="fw-bold text-dark mb-1">Atualizar Dados Cadastrais</h2>
+						<p class="text-muted">Preencha os campos abaixo para manter as suas informações de contato atualizadas no SGEN.</p>
+						<hr class="text-muted opacity-25 my-4">
+					</div>
 
-<section class="card card-cadastro">
-    <h2>Atualizar Dados - SGEN</h2>
-    <p class="descricao">Preencha os dados abaixo para atualizar sua conta.</p>
+					<div class="card-body py-0">
 
-    <form method="post" class="formulario-padrao">
-        {% csrf_token %}
-        
-        <div class="campo">
-            <label>Nome:</label>
-            {{ form.first_name }}
-        </div>
+						{% if form.errors or form.non_field_errors %}
+						<div class="alert alert-danger border-0 shadow-sm mb-4">
+							<h6 class="fw-bold mb-2"><i class="bi bi-exclaim-triangle-fill me-2"></i> Por favor, corrija os problemas abaixo:</h6>
+							<ul class="mb-0 small ps-3">
+								{% for field in form %}
+									{% for error in field.errors %}
+										<li><strong>{{ field.label }}:</strong> {{ error }}</li>
+									{% endfor %}
+								{% endfor %}
+								{% for error in form.non_field_errors %}
+									<li>{{ error }}</li>
+								{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
 
-        <div class="campo">
-            <label>Sobrenome:</label>
-            {{ form.last_name }}
-        </div>
+						<form method="post" class="needs-validation">
+							{% csrf_token %}
+							
+							<div class="row g-3 text-dark">
+								<div class="col-sm-6">
+									<label class="form-label fw-semibold text-secondary">Nome</label>
+									<div class="django-field-wrapper">
+										{{ form.first_name }}
+									</div>
+								</div>
 
-        
+								<div class="col-sm-6">
+									<label class="form-label fw-semibold text-secondary">Sobrenome</label>
+									<div class="django-field-wrapper">
+										{{ form.last_name }}
+									</div>
+								</div>
 
-        <div class="campo">
-            <label>Telefone:</label>
-            {{ form.phone }}
-        </div>
+								<div class="col-12 mt-3">
+									<label class="form-label fw-semibold text-secondary">Telefone / WhatsApp</label>
+									<div class="django-field-wrapper">
+										{{ form.phone }}
+									</div>
+								</div>
+							</div>
 
-        
+							<div class="d-flex flex-column flex-md-row justify-content-md-end gap-2 mt-5 pt-3 border-top">
+								<a href="{% url 'editar_perfil' pk=user.pk %}" class="btn btn-light btn-lg px-4 text-muted fw-medium order-2 order-md-1">
+									Cancelar
+								</a>
+								<button type="submit" class="btn btn-primary btn-lg px-5 fw-bold shadow-sm order-1 order-md-2">
+									<i class="bi bi-save me-2"></i>Atualizar Cadastro
+								</button>
+							</div>
 
-    {% if formulario.non_field_errors %}
-    <div class="alerta-erro">
-        {% for erro in formulario.non_field_errors %}
-            <p>{{ erro }}</p>
-        {% endfor %}
-    </div>
-{% endif %}
+						</form>
+						</div>
+				</div>
+				</div>
+		</div>
+	</div>
+</section>
 
-
-        {% if form.errors %}
-        <div class="mensagem-erro">
-            {{ form.errors }}
-        </div>
-        {% endif %}
-
-
-
-        <button type="submit" class="btn-principal">Atualizar Cadastro</button>
-    </form>
-
-
-
-
-
-
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		const inputs = document.querySelectorAll('.django-field-wrapper input');
+		inputs.forEach(input => {
+			input.classList.add('form-control', 'form-control-lg');
+		});
+	});
+</script>
 {% endblock %}

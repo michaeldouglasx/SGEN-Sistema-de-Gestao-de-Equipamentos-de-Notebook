@@ -11,6 +11,7 @@ class RecuperarSenhaView(FormView):
     template_name = "recuperar_senha.html"
     form_class = RecuperarSenhaForm
     success_url = reverse_lazy('login')
+    
 
     def form_valid(self, form):
         token_criado = form.save() 

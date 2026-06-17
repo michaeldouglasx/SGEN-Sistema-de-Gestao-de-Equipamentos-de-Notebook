@@ -1,20 +1,81 @@
 {% extends 'base.html' %}
-{% block title %} Editar | SGEN{% endblock %}
+{% load static %}
+
+{% block title %} Editar Reserva | SGEN{% endblock %}
+
 {% block content %}
-<section class="card card-reserva ">
-    <h2>O que você deseja fazer?</h2>
+<section class="py-5 bg-light min-vh-100 d-flex align-items-center">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
 
-    <div class="d-flex gap-5 align-items-center">
-        <form method="post" action="{% url 'cancelar_reserva' reserva.pk %}" class="m-0">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Cancelar  Solicitação</button>
-            
-        </form>
-        
+				<div class="card shadow-sm border-0 rounded-3 p-3 p-md-4 bg-white">
+					
+					<div class="card-header bg-white border-0 pt-3 pb-0 text-center text-md-start">
+						<h2 class="fw-bold text-dark mb-1">Gerenciar Solicitação</h2>
+						<p class="text-muted">Escolha qual ação você deseja realizar para esta reserva de equipamento.</p>
+						<hr class="text-muted opacity-25 my-4">
+					</div>
 
-        <a href="{% url 'atualizar_reserva' reserva.pk %}" class="btn btn-primary">Atualizar Solicitação</a>
-    </div>
-<br>
-    <a href="{% url 'minhas_reservas' %}">Voltar</a>
+					<div class="card-body">
+						<div class="row g-4 justify-content-center">
+							
+							<div class="col-sm-6">
+								<div class="card h-100 border rounded-3 p-4 text-center custom-action-card">
+									<div class="text-primary mb-3">
+										<i class="bi bi-pencil-square fs-1"></i>
+									</div>
+									<h4 class="fw-bold text-dark mb-2">Atualizar Dados</h4>
+									<p class="text-muted small flex-grow-1">
+										Altere os acessórios selecionados ou modifique informações da sua reserva atual.
+									</p>
+									<a href="{% url 'atualizar_reserva' reserva.pk %}" class="btn btn-primary w-100 fw-bold py-2 mt-3 shadow-sm">
+										Atualizar Solicitação
+									</a>
+								</div>
+							</div>
+
+							<div class="col-sm-6">
+								<div class="card h-100 border rounded-3 p-4 text-center custom-action-card">
+									<div class="text-danger mb-3">
+										<i class="bi bi-x-circle fs-1"></i>
+									</div>
+									<h4 class="fw-bold text-dark mb-2">Cancelar Pedido</h4>
+									<p class="text-muted small flex-grow-1">
+										Deseja desistir do empréstimo? Esta ação removerá sua vaga da fila de espera.
+									</p>
+									
+									<form method="post" action="{% url 'cancelar_reserva' reserva.pk %}" class="m-0 w-100 mt-3">
+										{% csrf_token %}
+										<button type="submit" class="btn btn-outline-danger w-100 fw-bold py-2">
+											Cancelar Solicitação
+										</button>
+									</form>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="text-center mt-5 pt-3 border-top">
+							<a href="{% url 'minhas_reservas' %}" class="btn btn-link text-decoration-none text-muted fw-medium">
+								<i class="bi bi-arrow-left me-2"></i>Voltar para Meus Empréstimos
+							</a>
+						</div>
+
+					</div>
+				</div>
+				</div>
+		</div>
+	</div>
 </section>
+
+<style>
+	.custom-action-card {
+		transition: transform 0.2s, box-shadow 0.2s;
+	}
+	.custom-action-card:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 .5rem 1rem rgba(0,0,0,.08)!important;
+	}
+</style>
 {% endblock %}

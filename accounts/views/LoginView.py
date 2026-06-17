@@ -5,6 +5,10 @@ from django.contrib.auth import authenticate, login
 
 
 def Login_View(request):
+
+    if request.user.is_authenticated:
+        return redirect('reserva') 
+    
     if request.method == "POST":
         login_form = AuthenticationForm(request, data=request.POST)
 
@@ -37,6 +41,15 @@ def Login_View(request):
 
     else:
         login_form = AuthenticationForm()
+        login_form.fields['username'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Digite seu e-mail'
+        })
+
+        login_form.fields['password'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Digite sua senha'
+        })
 
     return render(
         request,

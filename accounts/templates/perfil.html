@@ -1,48 +1,83 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Perfil | SGEN{% endblock %}
 
 {% block content %}
-<section class="card ">
+<section class="py-5 bg-light min-vh-100 d-flex align-items-center">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-10 col-lg-8">
 
-  <div class="perfil-card">
+				<div class="card shadow-sm border-0 rounded-3 overflow-hidden bg-white">
+					
+					<div class="bg-primary bg-gradient text-white p-4 p-md-5 d-flex flex-column flex-sm-row align-items-center gap-4">
+						
+						<div class="bg-white text-primary rounded-circle d-flex align-items-center justify-content-center shadow-sm fw-bold fs-2" style="width: 80px; height: 80px; min-width: 80px;">
+							{{ user.first_name|slice:":1" }}{{ user.last_name|slice:":1"|default:"" }}
+						</div>
+						
+						<div class="text-center text-sm-start">
+							<h2 class="fw-bold mb-1">{{ user.get_full_name|default:user.username }}</h2>
+							<span class="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 px-3 py-2 rounded-pill fs-7">
+								<i class="bi bi-envelope-fill me-1"></i>{{ user.email }}
+							</span>
+						</div>
+					</div>
 
-    <div>
-      <div class="avatar">
-        
-      </div>
-      <div class="perfil-info">
-        <h2>{{ user.get_full_name }}</h2>
-        <span class="badge">{{ user.email }}</span>
-      </div>
-    </div>
+					<div class="card-body p-4 p-md-5">
+						
+						<h4 class="fw-bold text-dark mb-4 pb-2 border-bottom">Informações da Conta</h4>
+						
+						<div class="row g-4">
+							<div class="col-sm-6">
+								<div class="p-3 bg-light rounded-3 border-start border-primary border-3 shadow-xs">
+									<span class="text-muted d-block small text-uppercase fw-semibold mb-1" style="font-size: 0.75rem;">Username</span>
+									<span class="fw-bold text-dark fs-5">{{ user.username }}</span>
+								</div>
+							</div>
 
-    <div class="perfil-body">
-      <div class="campo">
-        <span class="label">Username</span>
-        <span class="valor">{{ user.username }}</span>
-      </div>
-      <div class="campo">
-        <span class="label">E-mail</span>
-        <span class="valor">{{ user.email_academico }}</span>
-      </div>
-      <div class="campo">
-        <span class="label">Membro desde</span>
-        <span class="valor">{{ user.date_joined|date:"d/m/Y" }}</span>
-      </div>
-      <div class="campo">
-        <span class="label">Último acesso</span>
-        <span class="valor">{{ user.last_login|date:"d/m/Y H:i" }}</span>
-      </div>
-    </div>
+							<div class="col-sm-6">
+								<div class="p-3 bg-light rounded-3 border-start border-primary border-3 shadow-xs">
+									<span class="text-muted d-block small text-uppercase fw-semibold mb-1" style="font-size: 0.75rem;">E-mail Acadêmico</span>
+									<span class="fw-bold text-dark fs-5">{{ user.email_academico|default:user.email }}</span>
+								</div>
+							</div>
 
-    <div class="perfil-actions">
-      <a href="{% url 'editar_perfil' pk=request.user.pk %}" class="btn btn-primary">Editar perfil</a>
-      <a href="{%url 'logout'%}" class="btn btn-danger">Sair</a>
-    </div>
+							<div class="col-sm-6">
+								<div class="p-3 bg-light rounded-3 border">
+									<span class="text-muted d-block small text-uppercase fw-semibold mb-1" style="font-size: 0.75rem;"><i class="bi bi-calendar-check me-1"></i>Membro desde</span>
+									<span class="fw-semibold text-secondary">{{ user.date_joined|date:"d/m/Y" }}</span>
+								</div>
+							</div>
 
-  </div>
+							<div class="col-sm-6">
+								<div class="p-3 bg-light rounded-3 border">
+									<span class="text-muted d-block small text-uppercase fw-semibold mb-1" style="font-size: 0.75rem;"><i class="bi bi-clock-history me-1"></i>Último acesso</span>
+									<span class="fw-semibold text-secondary">{{ user.last_login|date:"d/m/Y H:i" }}</span>
+								</div>
+							</div>
+						</div>
 
+						<div class="d-flex flex-column flex-md-row justify-content-md-between align-items-center gap-3 mt-5 pt-4 border-top">
+							<a href="{% url 'minhas_reservas' %}" class="btn btn-link text-decoration-none text-muted fw-medium order-3 order-md-1">
+								<i class="bi bi-arrow-left me-2"></i>Voltar para o Início
+							</a>
+							
+							<div class="d-flex flex-column flex-sm-row gap-2 w-100 w-md-auto order-1 order-md-2 justify-content-end">
+								<a href="{% url 'logout' %}" class="btn btn-outline-danger px-4 fw-semibold order-2 order-sm-1">
+									<i class="bi bi-box-arrow-right me-2"></i>Sair
+								</a>
+								<a href="{% url 'editar_perfil' pk=request.user.pk %}" class="btn btn-primary px-4 fw-bold shadow-sm order-1 order-sm-2">
+									<i class="bi bi-pencil-square me-2"></i>Editar perfil
+								</a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				</div>
+		</div>
+	</div>
 </section>
-
-{%endblock%}
+{% endblock %}
